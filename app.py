@@ -1,120 +1,177 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 import flask
-from flask import request
-import numpy as np
-import nltk
-import string
-import random
 
 app = flask.Flask(__name__)
 
-# @app.route("/")
-# def hello_world():
-# 	return "<p>Hello, World!</p>"
 
-# @app.route("/assistant/")
-# def assistant():
-# 	return "<h1>welcome to your assistant</h1>"
-
-
-f = open('./YourAssistant.txt', 'r', errors='ignore')
-raw_doc = f.read()
-raw_doc = raw_doc.lower()
+# Libraries needed for NLP
+import nltk
 nltk.download('punkt')
-nltk.download('wordnet')
-sent_tokens = nltk.sent_tokenize(raw_doc)
-word_tokens = nltk.word_tokenize(raw_doc)
+from nltk.stem.lancaster import LancasterStemmer
+stemmer = LancasterStemmer()
+
+# Libraries needed for Tensorflow processing
+import tensorflow as tf
+import numpy as np
+import tflearn
+import random
+import json
+
+# import our chat-bot intents file
+with open('intents.json') as json_data:
+    intents = json.load(json_data)
 
 
+words = []
+classes = []
+documents = []
+ignore = ['?']
+# loop through each sentence in the intent's patterns
+for intent in intents['intents']:
+    for pattern in intent['patterns']:
+        # tokenize each and every word in the sentence
+        w = nltk.word_tokenize(pattern)
+        # add word to the words list
+        words.extend(w)
+        # add word(s) to documents
+        documents.append((w, intent['tag']))
+        # add tags to our classes list
+        if intent['tag'] not in classes:
+            classes.append(intent['tag'])
 
-# sent_tokens[:2]
+# Perform stemming and lower each word as well as remove duplicates
+words = [stemmer.stem(w.lower()) for w in words if w not in ignore]
+words = sorted(list(set(words)))
 
-# word_tokens[:2]
+# remove duplicate classes
+classes = sorted(list(set(classes)))
 
-lemmer = nltk.stem.WordNetLemmatizer()
+print (len(documents), "documents")
+print (len(classes), "classes", classes)
+print (len(words), "unique stemmed words", words)
+
+# create training data
+training = []
+output = []
+# create an empty array for output
+output_empty = [0] * len(classes)
+
+# create training set, bag of words for each sentence
+for doc in documents:
+    # initialize bag of words
+    bag = []
+    # list of tokenized words for the pattern
+    pattern_words = doc[0]
+    # stemming each word
+    pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+    # create bag of words array
+    for w in words:
+        bag.append(1) if w in pattern_words else bag.append(0)
+
+    # output is '1' for current tag and '0' for rest of other tags
+    output_row = list(output_empty)
+    output_row[classes.index(doc[1])] = 1
+
+    training.append([bag, output_row])
+
+# shuffling features and turning it into np.array
+random.shuffle(training)
+training = np.array(training)
+
+# creating training lists
+train_x = list(training[:,0])
+train_y = list(training[:,1])
 
 
-def LemTokens(tokens):
-    return [lemmer.lemmatize(token) for token in tokens]
+# resetting underlying graph data
+tf.compat.v1.reset_default_graph()
+
+# Building neural network
+net = tflearn.input_data(shape=[None, len(train_x[0])])
+net = tflearn.fully_connected(net, 10)
+net = tflearn.fully_connected(net, 10)
+net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
+net = tflearn.regression(net)
+
+# Defining model and setting up tensorboard
+model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
+
+# Start training
+model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
+model.save('model.tflearn')
 
 
-remove_punct_dict = dict((ord(punct), None) for punct in string.punctuation)
+import pickle
+pickle.dump( {'words':words, 'classes':classes, 'train_x':train_x, 'train_y':train_y}, open( "training_data", "wb" ) )
 
 
-def LemNormalize(text):
-    return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
+# restoring all the data structures
+data = pickle.load( open( "training_data", "rb" ) )
+words = data['words']
+classes = data['classes']
+train_x = data['train_x']
+train_y = data['train_y']
 
+with open('intents.json') as json_data:
+    intents = json.load(json_data)
 
-GREET_INPUTS = ("hello", "hi", "greetings", "sup", "What's up", "hey",)
-GREET_RESPONSES = ["hi", "hey", "nods", "hi there",
-                   "hello", "I am glad! You are talking to me"]
+# load the saved model
+model.load('./model.tflearn')
 
+def clean_up_sentence(sentence):
+    # tokenizing the pattern
+    sentence_words = nltk.word_tokenize(sentence)
+    # stemming each word
+    sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    return sentence_words
 
-def greet(sentence):
-    for word in sentence.split():
-        if word.lower() in GREET_INPUTS:
-            return random.choice(GREET_RESPONSES)
+# returning bag of words array: 0 or 1 for each word in the bag that exists in the sentence
+def bow(sentence, words, show_details=False):
+    # tokenizing the pattern
+    sentence_words = clean_up_sentence(sentence)
+    # generating bag of words
+    bag = [0]*len(words)  
+    for s in sentence_words:
+        for i,w in enumerate(words):
+            if w == s: 
+                bag[i] = 1
+                if show_details:
+                    print ("found in bag: %s" % w)
 
+    return(np.array(bag))
 
-def response(user_response):
-    robo1_response = ''
-    TfidfVec = TfidfVectorizer(tokenizer=LemNormalize, stop_words='english')
-    tfidf = TfidfVec.fit_transform(sent_tokens)
-    vals = cosine_similarity(tfidf[-1], tfidf)
-    idx = vals.argsort()[0][-2]
-    flat = vals.flatten()
-    flat.sort()
-    req_tfidf = flat[-2]
+ERROR_THRESHOLD = 0.30
+def classify(sentence):
+    # generate probabilities from the model
+    results = model.predict([bow(sentence, words)])[0]
+    # filter out predictions below a threshold
+    results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
+    # sort by strength of probability
+    results.sort(key=lambda x: x[1], reverse=True)
+    return_list = []
+    for r in results:
+        return_list.append((classes[r[0]], r[1]))
+    # return tuple of intent and probability
+    return return_list
 
-    if(req_tfidf == 0):
-        robo1_response = robo1_response + "I am sorry! I don't understand you"
-        return robo1_response
-    else:
-        robo1_response = robo1_response + sent_tokens[idx]
-        return robo1_response
+def response(sentence, userID='123', show_details=False):
+    results = classify(sentence)
+    # if we have a classification then find the matching intent tag
+    if results:
+        # loop as long as there are matches to process
+        while results:
+            for i in intents['intents']:
+                # find a tag matching the first result
+                if i['tag'] == results[0][0]:
+                    # a random response from the intent
+                    return random.choice(i['responses'])
+
+            results.pop(0)
 
 
 @app.route("/", methods=["GET", "POST"])
 def assistant():
-	word_tokens = nltk.word_tokenize(raw_doc)
-	user_response = request.args.get('query')
-	print(user_response)
-	user_response = user_response.lower()
-	if(user_response != 'bye'):
-		if(user_response == 'thanks' or user_response == 'thank you'):
-			return "<p>Bot: You are welcome..</p>"
-		else:
-			if(greet(user_response) != None):
-				return "<h1>Bot: " + greet(user_response)+"</h1>"
-			else:
-				sent_tokens.append(user_response)
-				word_tokens = word_tokens + nltk.word_tokenize(user_response)
-				# final_words = list(set(word_tokens))
-				return "<h1> Bot: "+response(user_response)+"</h1>"
-                # sent_tokens.remove(user_response)
-	else:
-		return "<h1> Bot Goodbye! Take care</h1>"
-
-# flag = True
-# print("Bot: My name is Your Assistant. Lets have a conversation! Also, if you want to exit any time , just type Bye!")
-# while(flag==True):
-# 	user_response = input()
-# 	user_response = user_response.lower()
-# 	if(user_response != 'bye'):
-# 		if(user_response == 'thanks' or user_response == 'thank you'):
-# 		  flag=False
-# 		  print("Bot: You are welcome..")
-# 		else:
-# 			if(greet(user_response)!=None):
-# 				print("Bot: "+ greet(user_response))
-# 			else:
-# 				sent_tokens.append(user_response)
-# 				word_tokens= word_tokens + nltk.word_tokenize(user_response)
-# 				final_words = list(set(word_tokens))
-# 				print("Bot: ",end="")
-# 				print(response(user_response))
-# 				sent_tokens.remove(user_response)
-# 	else:
-# 	  flag=False
-# 	  print("Bot: Goodbye! Take care")
+	user_request = flask.request.args.get('query')
+	classify(user_request)
+	chatbot_response = response(user_request)
+	return {"response" : chatbot_response }
+	
