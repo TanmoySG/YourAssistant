@@ -1,0 +1,18 @@
+{"intents": [
+	{"tag": "greeting",
+	 "patterns": ["Hi","Hello","Hey"],
+	 "responses": ["Hello!","How can I help you","What information do you need"],
+	 "context_set": ""
+	},
+	{"tag": "goodbye",
+	 "patterns": ["GoodBye","See you later","Bye","Have a good day"],
+	 "responses": ["GoodBye","It was nice to meet you","See you later"],
+	 "context_set": ""
+	},
+	{"tag": "Information",
+       	 "patterns": ["CIT Kokrajhar","About","CIT","institution"],
+	 "responses": ["Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"],
+	 "context_set": ""
+	}
+  ]
+}
