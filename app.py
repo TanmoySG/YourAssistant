@@ -193,3 +193,20 @@ def intent_list():
     with open("intents.json", "r") as intents_json:
         intents_list = json.load(intents_json)
     return {"response" : intents_list }
+
+@app.route("/intent/add", methods=["POST"])
+def intent_add():
+    action_json = request.get_json(force = True)
+    action_token = request.args.get('token')
+    token = ""
+    with open("token.json") as token_doc:
+        token_json = json.load(token_doc)
+        token = token_json["token"]
+    with open("intents.json", "r") as intents_json:
+        intents_list = json.load(intents_json)
+        intents_array = intent_list["intents"]
+        if action_json["token"] == token:
+            intents_array.append(action_json)
+            with open("intents.json", 'w') as f:
+                json.dump(intents_list, f, indent=4)
+    return {"response" : "intents updated" }
