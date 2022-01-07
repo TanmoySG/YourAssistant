@@ -174,14 +174,6 @@ def assistant():
 	classify(user_request)
 	chatbot_response = response(user_request)
 	return {"response" : chatbot_response }
-	
-
-
-# @app.route("/intents/list", methods=["GET", "POST"])
-# def intent_list():
-# 	with open("intents.json", r) as intents_json:
-#         intent_list = json.dump(intents_json)
-# 	return {"response" : chatbot_response }
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -196,17 +188,19 @@ def intent_list():
 
 @app.route("/intent/add", methods=["POST"])
 def intent_add():
-    action_json = request.get_json(force = True)
-    action_token = request.args.get('token')
+    action_json = flask.request.get_json(force = True)
+    action_token = flask.request.args.get('token')
     token = ""
     with open("token.json") as token_doc:
         token_json = json.load(token_doc)
         token = token_json["token"]
     with open("intents.json", "r") as intents_json:
         intents_list = json.load(intents_json)
-        intents_array = intent_list["intents"]
-        if action_json["token"] == token:
+        intents_array = intents_list["intents"]
+        if action_token == token:
             intents_array.append(action_json)
             with open("intents.json", 'w') as f:
                 json.dump(intents_list, f, indent=4)
-    return {"response" : "intents updated" }
+            return {"response" : "intents updated" }
+        else:
+            return {"response" : "Token Incorrect"}
