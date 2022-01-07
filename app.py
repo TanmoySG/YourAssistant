@@ -168,10 +168,28 @@ def response(sentence, userID='123', show_details=False):
             results.pop(0)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/interact", methods=["GET", "POST"])
 def assistant():
 	user_request = flask.request.args.get('query')
 	classify(user_request)
 	chatbot_response = response(user_request)
 	return {"response" : chatbot_response }
 	
+
+
+# @app.route("/intents/list", methods=["GET", "POST"])
+# def intent_list():
+# 	with open("intents.json", r) as intents_json:
+#         intent_list = json.dump(intents_json)
+# 	return {"response" : chatbot_response }
+
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+	return "<h1>Welcome to YourAssistant-API</h1>"
+
+@app.route("/intent/list", methods=["GET", "POST"])
+def intent_list():
+    with open("intents.json", "r") as intents_json:
+        intents_list = json.load(intents_json)
+    return {"response" : intents_list }
