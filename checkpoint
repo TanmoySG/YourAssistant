@@ -1,2 +1,2 @@
-model_checkpoint_path: "C:\\Users\\Abhishek\\OneDrive\\Desktop\\m-project\\chatbot-backend\\chatbot-backend\\model.tflearn"
-all_model_checkpoint_paths: "C:\\Users\\Abhishek\\OneDrive\\Desktop\\m-project\\chatbot-backend\\chatbot-backend\\model.tflearn"
+model_checkpoint_path: "/workspaces/YourAssistant/model.tflearn"
+all_model_checkpoint_paths: "/workspaces/YourAssistant/model.tflearn"
