@@ -23,7 +23,7 @@ pip install -r requirements.txt
 Edit the `token.json` to add your token
 ```
 {
-    "token" : "{your token here}
+    "token" : "{your token here}"
 }
 ```
 
