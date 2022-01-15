@@ -8,13 +8,6 @@ app = flask.Flask(__name__)
 
 @app.route("/interact", methods=["GET", "POST"])
 def assistant():
-    # with open("intents.json", "r") as intents_file:
-    #     intent_json = json.load(intents_file)
-    #     cache_flag = intent_json["change"]
-    #     if cache_flag == "True":
-    #         intent_json["change"] = "False"
-    #         with open("intents.json", 'w') as f:
-    #             json.dump(intent_json, f, indent=4)
     user_request = flask.request.args.get('query')
     model.classify(user_request)
     chatbot_response = model.response(user_request)
