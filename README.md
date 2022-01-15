@@ -36,7 +36,7 @@ flask run
 
 You can also use the `setup.py` script to complete the setup. The setup-script installs the dependancies and also adds the token to the `token.json` file
 
-Download the `v0.1-Beta Release` files from [https://github.com/TanmoySG/YourAssistant/releases/tag/v0.1-Beta](@TanmoySG/YourAssistant/releases/tag/v0.1-Beta)
+Download the `v0.1-Beta Release` files from [@TanmoySG/YourAssistant/releases/tag/v0.1-Beta](https://github.com/TanmoySG/YourAssistant/releases/tag/v0.1-Beta)
 
 ```
 YourAssistantSource.tar.gz
