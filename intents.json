@@ -41,20 +41,6 @@
                 "Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"
             ],
             "context_set": ""
-        },
-        {
-            "tag": "random1",
-            "patterns": [
-                "fo",
-                "fi",
-                "fu"
-            ],
-            "responses": [
-                "fo!",
-                "sf can I dufg you",
-                "What fluf sf ghst need"
-            ],
-            "context_set": ""
         }
     ]
 }
