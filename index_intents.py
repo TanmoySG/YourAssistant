@@ -14,7 +14,10 @@ indexed_patterns = []
 
 for intent in intents:
     patterns = intent["patterns"]
-    indexed_patterns.extend(patterns)
+    for pattern in patterns:
+        indexed_patterns.append(pattern)
+        indexed_patterns.append(pattern.lower())
+        
 
 with open("indexed_intents.json", "r") as indexedIntentsFile:
     indexedIntents = json.load(indexedIntentsFile)

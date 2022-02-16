@@ -1,3 +1,7 @@
 .venv
 __pycache__
 tflearn_logs
+.venv/bin/activate
+training_data
+.gitignore
+.gitignore

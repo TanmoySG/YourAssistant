@@ -1,46 +1,200 @@
 {
-    "intents": [
-        {
-            "tag": "greeting",
-            "patterns": [
-                "Hi",
-                "Hello",
-                "Hey"
-            ],
-            "responses": [
-                "Hello!",
-                "How can I help you",
-                "What information do you need"
-            ],
-            "context_set": ""
-        },
-        {
-            "tag": "goodbye",
-            "patterns": [
-                "GoodBye",
-                "See you later",
-                "Bye",
-                "Have a good day"
-            ],
-            "responses": [
-                "GoodBye",
-                "It was nice to meet you",
-                "See you later"
-            ],
-            "context_set": ""
-        },
-        {
-            "tag": "Information",
-            "patterns": [
-                "CIT Kokrajhar",
-                "About",
-                "CIT",
-                "institution"
-            ],
-            "responses": [
-                "Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"
-            ],
-            "context_set": ""
-        }
-    ]
+	"intents": [
+		{
+			"tag": "greeting",
+			"patterns": [
+				"Hi",
+				"Hello",
+				"Hey"
+			],
+			"responses": [
+				"Hello!",
+				"How can I help you",
+				"What information do you need"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "goodbye",
+			"patterns": [
+				"GoodBye",
+				"See you later",
+				"Bye",
+				"Have a good day"
+			],
+			"responses": [
+				"GoodBye",
+				"It was nice to meet you",
+				"See you later"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "information",
+			"patterns": [
+				"CIT Kokrajhar",
+				"About",
+				"CIT",
+				"institution"
+			],
+			"responses": [
+				"Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "branch",
+			"patterns": [
+				"Branches",
+				"How many branches are there in CIT?",
+				"Available branches"
+			],
+			"responses": [
+				"There are total 6 core branches in CIT",
+				"Available Core Engineering branches are Computer Science & Engineering,Civil Engineering,Food Engineering and Technology,Electronics & Communictaion Engineering,Information Technology,Instrumentation Engineering"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "course",
+			"patterns": [
+				"Courses",
+				"How many courses are there in CIT?",
+				"Available courses"
+			],
+			"responses": [
+				"There are total 5 courses in CIT",
+				"Available courses are Diploma,Bachelor of Technology,Bachelor of Design,Master of Technology,Master of Design"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "student",
+			"patterns": [
+				"Students",
+				"Total number of students in CIT",
+				"How many students are there in CIT"
+			],
+			"responses": [
+				"846",
+				"There are total 846 students in CIT"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "faculties",
+			"patterns": [
+				"Faculties",
+				"Total number of faculties in CIT",
+				"How many faculties are there in CIT"
+			],
+			"responses": [
+				"55+ faculties",
+				"There are total 55+ faculties in CIT Kokrajhar"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "director",
+			"patterns": [
+				"Who is the Director of CIT Kokrajhar?",
+				"Director"
+			],
+			"responses": [
+				"Prof. T. G. Sitharam"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "registrar",
+			"patterns": [
+				"Who is the Registrar of CIT Kokrajhar?",
+				"Registrar"
+			],
+			"responses": [
+				"Ms. Chaitali Brahma"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "dean",
+			"patterns": [
+				"Who are the Deans of CIT Kokrajhar?",
+				"How many Deans are there in CIT Kokrajhar?",
+				"Deans"
+			],
+			"responses": [
+				"There are total 6 deans in CIT Kokrajhar",
+				"All the respected deans are- Prof. Hemanta Kumar Kalita(Academic),Dr. Avik Mukherjee(Research and Development),Dr. Bihung BrahmaDean(Student Affairs),Prof. Tapan Kumar MaitiDean(Faculty Affairs),Pranav Kumar SinghDean(Alumni & External Relations),Dr. Monomoy Goswami(P&D)"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "computer-science-engineering",
+			"patterns": [
+				"computer science",
+				"cse",
+				"Who is the HOD of CSE branch?",
+				"CSE branch HOD"
+			],
+			"responses": [
+				"Dr. Amitava Nag"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "electronics-telecommunication",
+			"patterns": [
+				"electronics-telecommunication",
+				"ece",
+				"Who is the HOD of ECE branch?",
+				"ECE branch HOD"
+			],
+			"responses": [
+				"Haradhan Chel"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "food-engineering-technology",
+			"patterns": [
+				"food-engineering-technology",
+				"food engineering",
+				"food technology",
+				"fet",
+				"Who is the HOD of FET branch?",
+				"FET branch HOD"
+			],
+			"responses": [
+				"Dr. Subhajit Ray"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "instrumentation-engineering",
+			"patterns": [
+				"instrumentation",
+				"instrumentation engineering",
+				"Who is the HOD of IE branch?",
+				"IE branch HOD"
+			],
+			"responses": [
+				"Tapan Kumar Maiti"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "civil-engineering",
+			"patterns": [
+				"civil",
+				"civil-engineering",
+				"Who is the HOD of CIVIL branch?",
+				"CE branch HOD"
+			],
+			"responses": [
+				"Dr. Biswarup Saikia"
+			],
+			"context_set": ""
+		}
+	]
 }
