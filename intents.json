@@ -1,6 +1,59 @@
 {
 	"intents": [
 		{
+			"tag": "hod-list",
+			"patterns": [
+				"hod"
+			],
+			"responses": [
+				"choose_department"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "department-list",
+			"patterns": [
+				"department"
+			],
+			"responses": [
+				"choose_department"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "course-list",
+			"patterns": [
+				"courses",
+				"degrees"
+			],
+			"responses": [
+				"choose_course"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "hod-cse",
+			"patterns": [
+				"hod cse",
+				"hod computer science"
+			],
+			"responses": [
+				"Dr. Amitava Nag"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "hod-ece",
+			"patterns": [
+				"hod ece",
+				"hod electronics and communication"
+			],
+			"responses": [
+				"Haradhan Chel"
+			],
+			"context_set": ""
+		},
+		{
 			"tag": "greeting",
 			"patterns": [
 				"Hi",
@@ -133,12 +186,10 @@
 			"tag": "computer-science-engineering",
 			"patterns": [
 				"computer science",
-				"cse",
-				"Who is the HOD of CSE branch?",
-				"CSE branch HOD"
+				"cse"
 			],
 			"responses": [
-				"Dr. Amitava Nag"
+				"CSE Department Offers ..."
 			],
 			"context_set": ""
 		},
@@ -146,12 +197,10 @@
 			"tag": "electronics-telecommunication",
 			"patterns": [
 				"electronics-telecommunication",
-				"ece",
-				"Who is the HOD of ECE branch?",
-				"ECE branch HOD"
+				"ece"
 			],
 			"responses": [
-				"Haradhan Chel"
+				"ECE offers ..."
 			],
 			"context_set": ""
 		},
@@ -161,12 +210,10 @@
 				"food-engineering-technology",
 				"food engineering",
 				"food technology",
-				"fet",
-				"Who is the HOD of FET branch?",
-				"FET branch HOD"
+				"fet"
 			],
 			"responses": [
-				"Dr. Subhajit Ray"
+				"FET offers"
 			],
 			"context_set": ""
 		},
@@ -174,12 +221,10 @@
 			"tag": "instrumentation-engineering",
 			"patterns": [
 				"instrumentation",
-				"instrumentation engineering",
-				"Who is the HOD of IE branch?",
-				"IE branch HOD"
+				"instrumentation engineering"
 			],
 			"responses": [
-				"Tapan Kumar Maiti"
+				"IE Offers"
 			],
 			"context_set": ""
 		},
@@ -187,12 +232,10 @@
 			"tag": "civil-engineering",
 			"patterns": [
 				"civil",
-				"civil-engineering",
-				"Who is the HOD of CIVIL branch?",
-				"CE branch HOD"
+				"civil-engineering"
 			],
 			"responses": [
-				"Dr. Biswarup Saikia"
+				"CE Offers ..."
 			],
 			"context_set": ""
 		}

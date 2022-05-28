@@ -4,18 +4,38 @@ import model
 # import index_intents
 import importlib
 
+department_list = [
+    "cse",
+    "ece",
+    # . add dept here
+]
+
+course_list = [
+    "b.tech",
+    "bba"
+    # add courses here
+]
+
 app = flask.Flask(__name__)
+
+
+def vet_responses(model_reponse):
+    if model_reponse == "choose_department":
+        return department_list
+    
+    if model_reponse == "choose_course":
+        return course_list
+    
+    return model_reponse
 
 
 @app.route("/interact", methods=["GET", "POST"])
 def assistant():
     user_request = flask.request.args.get('query')
-    # intent_index = index_intents.getIndexedIntents()
-    # if user_request.lower() not in intent_index :
-    #     return {"response": "Contact Helpdesk for Further Queries at 91-3661-277279"}
     model.classify(user_request)
     chatbot_response = model.response(user_request)
-    return {"response": chatbot_response}
+    vetted_response = vet_responses(chatbot_response)
+    return {"response": vetted_response}
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -45,7 +65,6 @@ def intent_add():
             with open("intents.json", 'w') as f:
                 json.dump(intents_list, f, indent=4)
             importlib.reload(model)
-            # importlib.reload(index_intents)
             return {"response": "intents updated"}
         else:
             return {"response": "Token Incorrect"}
