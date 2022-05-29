@@ -4,28 +4,31 @@ import model
 # import index_intents
 import importlib
 
+hod_list = [
+    "hod cse", "hod it", "hod ece", "hod fet", "hod ie", "hod ce", "hod mcd"
+]
+
 department_list = [
-    "cse",
-    "ece",
-    # . add dept here
+    "cse", "it", "ece", "fet", "ie", "ce", "mcd"
 ]
 
 course_list = [
-    "b.tech",
-    "bba"
-    # add courses here
+    "diploma", "btech", "bdes", "mtech", "phd"
 ]
 
 app = flask.Flask(__name__)
 
 
 def vet_responses(model_reponse):
+    if model_reponse == "choose_hod":
+        return hod_list
+
     if model_reponse == "choose_department":
         return department_list
-    
+
     if model_reponse == "choose_course":
         return course_list
-    
+
     return model_reponse
 
 
