@@ -6,10 +6,9 @@ import compile from "string-template/compile";
 
 export default function ChatBox() {
 
-    var endpoint = compile("http://localhost:3000/interact?query={0)")
+    var endpoint = compile('https://tanmoysg-yourassistant-rxwxq6xg3447-5000.githubpreview.dev/interact?query="{0}"')
 
     const [messages, setMessages] = useState<string[]>([]);
-    const [messageIndex, setMessageIndex] = useState<number[]>([]);
     const [query, setQuery] = useState("");
 
     const interact = () => {
@@ -17,20 +16,22 @@ export default function ChatBox() {
         const messagesList: string[] = messages;
         messagesList.push(query)
         setMessages(messagesList);
-        const messagesIndex: number[] = messageIndex
-        setMessageIndex(messagesIndex)
 
-
-        // const normalizedQuery = endpoint(encodeURIComponent(query.trim()))
-        // fetch(normalizedQuery, {
-        //     method: "GET"
-        // }).then(response => {
-        //     return response.json()
-        // }).then(json => {
-        //     const messagesList: string[] = messages;
-        //     messagesList.push(json.response)
-        //     setMessages(messagesList);
-        // })
+        const normalizedQuery = endpoint(query.replace(" ", "%20"))
+        console.log(normalizedQuery)
+        fetch(normalizedQuery, {
+            method: "GET",
+            mode: "no-cors",
+        }).then(response => {
+            return response.json()
+        }).then(json => {
+            console.log(json)
+            const messagesList: string[] = messages;
+            messagesList.push(json.response)
+            setMessages(messagesList);
+            setQuery("");
+        })
+        return
     }
 
 
@@ -39,12 +40,11 @@ export default function ChatBox() {
         <Container style={{ height: "90vh", }}>
             <Stack sx={{ height: "100%" }}>
                 <Container style={{ width: "100%" }}>
-                    <ScrollArea style={{ height: 250 }}>
+                    <ScrollArea style={{ height: 500 }}>
                         <Stack sx={{ height: "100%" }}>
                             {
-                                messages.map(function (item) {
-                                    var index = 0
-                                    if (index % 2 == 0) {
+                                messages ? messages.map(function (item, key) {
+                                    if (key % 2 == 0) {
                                         return (
                                             <Paper shadow="xs" radius="md" p="md" sx={{ width: "45%", backgroundColor: "lightblue", alignSelf: "flex-start" }}>
                                                 <Text>{item}</Text>
@@ -57,7 +57,7 @@ export default function ChatBox() {
                                             </Paper>
                                         )
                                     }
-                                })
+                                }) : undefined
                             }
                         </Stack>
                     </ScrollArea>
