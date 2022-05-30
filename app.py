@@ -1,24 +1,44 @@
 import flask
 import json
 import model
+# import index_intents
 import importlib
+
+hod_list = [
+    "hod cse", "hod it", "hod ece", "hod fet", "hod ie", "hod ce", "hod mcd"
+]
+
+department_list = [
+    "cse", "it", "ece", "fet", "ie", "ce", "mcd"
+]
+
+course_list = [
+    "diploma", "btech", "bdes", "mtech", "phd"
+]
 
 app = flask.Flask(__name__)
 
 
+def vet_responses(model_reponse):
+    if model_reponse == "choose_hod":
+        return hod_list
+
+    if model_reponse == "choose_department":
+        return department_list
+
+    if model_reponse == "choose_course":
+        return course_list
+
+    return model_reponse
+
+
 @app.route("/interact", methods=["GET", "POST"])
 def assistant():
-    # with open("intents.json", "r") as intents_file:
-    #     intent_json = json.load(intents_file)
-    #     cache_flag = intent_json["change"]
-    #     if cache_flag == "True":
-    #         intent_json["change"] = "False"
-    #         with open("intents.json", 'w') as f:
-    #             json.dump(intent_json, f, indent=4)
     user_request = flask.request.args.get('query')
     model.classify(user_request)
     chatbot_response = model.response(user_request)
-    return {"response": chatbot_response}
+    vetted_response = vet_responses(chatbot_response)
+    return {"response": vetted_response}
 
 
 @app.route("/", methods=["GET", "POST"])

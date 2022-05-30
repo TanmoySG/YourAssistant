@@ -1,60 +1,371 @@
 {
-    "intents": [
+	"intents": [
+		{
+			"tag": "hod-list",
+			"patterns": [
+				"hod"
+			],
+			"responses": [
+				"choose_hod"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "department-list",
+			"patterns": [
+				"department"
+			],
+			"responses": [
+				"choose_department"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "course-list",
+			"patterns": [
+				"courses",
+				"degrees"
+			],
+			"responses": [
+				"choose_course"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "hod-cse",
+			"patterns": [
+				"hod cse",
+				"hod computer science",
+                "cse hod",
+                "who is the hod of computer science",
+                "hod of computer science and engineering?",
+                "who is the hod of cse?"
+			],
+			"responses": [
+				"Dr. Amitava Nag"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "hod-ece",
+			"patterns": [
+				"hod ece",
+				"hod electronics and communication",
+                "ece hod",
+                "who is the hod of electronics",
+                "hod of electronics and communication engineering?",
+                "who is the hod of ece?"
+
+			],
+			"responses": [
+				"Haradhan Chel"
+			],
+			"context_set": ""
+		},
         {
-            "tag": "greeting",
-            "patterns": [
-                "Hi",
-                "Hello",
-                "Hey"
-            ],
-            "responses": [
-                "Hello!",
-                "How can I help you",
-                "What information do you need"
-            ],
-            "context_set": ""
-        },
+			"tag": "hod-it",
+			"patterns": [
+				"hod it",
+				"hod information technology",
+                "ece it",
+                "who is the hod of it",
+                "hod of information technolgy?",
+                "who is the hod of it?"
+
+			],
+			"responses": [
+				"Dr. Amitava Nag"
+			],
+			"context_set": ""
+		},
         {
-            "tag": "goodbye",
-            "patterns": [
-                "GoodBye",
-                "See you later",
-                "Bye",
-                "Have a good day"
-            ],
-            "responses": [
-                "GoodBye",
-                "It was nice to meet you",
-                "See you later"
-            ],
-            "context_set": ""
-        },
+			"tag": "hod-ce",
+			"patterns": [
+				"hod ce",
+				"hod civil engineering",
+                "ce hod",
+                "who is the hod of civil engineering",
+                "hod of civil engineering?",
+                "who is the hod of ce?"
+
+			],
+			"responses": [
+				"Amit Kumar Dey"
+			],
+			"context_set": ""
+		},
         {
-            "tag": "Information",
-            "patterns": [
-                "CIT Kokrajhar",
-                "About",
-                "CIT",
-                "institution"
-            ],
-            "responses": [
-                "Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"
-            ],
-            "context_set": ""
-        },
+			"tag": "hod-ie",
+			"patterns": [
+				"hod ie",
+				"hod instrumentation engineering",
+                "ie hod",
+                "who is the hod of instrumentation",
+                "hod of instrumentation engineering?",
+                "who is the hod of ie?"
+
+			],
+			"responses": [
+				"Tapan Kumar Maiti"
+			],
+			"context_set": ""
+		},
         {
-            "tag": "random1",
-            "patterns": [
-                "fo",
-                "fi",
-                "fu"
-            ],
-            "responses": [
-                "fo!",
-                "sf can I dufg you",
-                "What fluf sf ghst need"
-            ],
-            "context_set": ""
-        }
-    ]
+			"tag": "hod-fet",
+			"patterns": [
+				"hod fet",
+				"hod food engineering",
+                "fet hod",
+                "who is the hod of food",
+                "hod of food technology",
+                "hod of food engineering technology?",
+                "who is the hod of fet?"
+
+			],
+			"responses": [
+				"Dr. Santosh Kumar"
+			],
+			"context_set": ""
+		},
+        {
+			"tag": "hod-mcd",
+			"patterns": [
+				"hod mcd",
+				"hod multimedia",
+                "mcd hod",
+                "who is the hod of multimedia communication and design",
+                "hod of design",
+                "hod of multimedia communication and design?",
+                "who is the hod of designing?",
+                "hod of designing"
+
+			],
+			"responses": [
+				"Dr. Abhijit Padun"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "greeting",
+			"patterns": [
+				"Hi",
+				"Hello",
+				"Hey",
+                "Heya"
+			],
+			"responses": [
+				"Hello!",
+				"How can I help you",
+				"What information do you need"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "goodbye",
+			"patterns": [
+				"GoodBye",
+				"See you later",
+				"Bye",
+				"Have a good day"
+			],
+			"responses": [
+				"GoodBye",
+				"It was nice to meet you",
+				"See you later"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "information",
+			"patterns": [
+				"CIT Kokrajhar",
+				"About",
+				"CIT",
+				"institution"
+			],
+			"responses": [
+				"Its a engineering institute located in Kokrajhar which provides various degrees such as under graduation , pg and phd in various fields of engineering"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "branch",
+			"patterns": [
+				"Branches",
+				"How many branches are there in CIT?",
+				"Available branches"
+			],
+			"responses": [
+				"There are total 6 core branches in CIT",
+				"Available Core Engineering branches are Computer Science & Engineering,Civil Engineering,Food Engineering and Technology,Electronics & Communictaion Engineering,Information Technology,Instrumentation Engineering"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "course",
+			"patterns": [
+				"Courses",
+				"How many courses are there in CIT?",
+				"Available courses"
+			],
+			"responses": [
+				"There are total 5 courses in CIT",
+				"Available courses are Diploma,Bachelor of Technology,Bachelor of Design,Master of Technology,Master of Design"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "student",
+			"patterns": [
+				"Students",
+				"Total number of students in CIT",
+				"How many students are there in CIT"
+			],
+			"responses": [
+				"846",
+				"There are total 846 students in CIT"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "faculties",
+			"patterns": [
+				"Faculties",
+				"Total number of faculties in CIT",
+				"How many faculties are there in CIT"
+			],
+			"responses": [
+				"55+ faculties",
+				"There are total 55+ faculties in CIT Kokrajhar"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "director",
+			"patterns": [
+				"Who is the Director of CIT Kokrajhar?",
+				"Director",
+                "director cit",
+                "cit director"
+			],
+			"responses": [
+				"Prof. T. G. Sitharam"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "registrar",
+			"patterns": [
+				"Who is the Registrar of CIT Kokrajhar?",
+				"Registrar",
+                "registrar cit",
+                "cit registrar"
+			],
+			"responses": [
+				"Ms. Chaitali Brahma"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "dean",
+			"patterns": [
+				"Who are the Deans of CIT Kokrajhar?",
+				"How many Deans are there in CIT Kokrajhar?",
+				"Deans"
+			],
+			"responses": [
+				"There are total 6 deans in CIT Kokrajhar",
+				"All the respected deans are- Prof. Hemanta Kumar Kalita (Academics), Dr. Avik Mukherjee (Research and Development), Dr. Bihung Brahma (Student Affairs), Prof. Tapan Kumar Maiti (Faculty Affairs), Pranav Kumar Singh (Alumni & External Relations), Dr. Monomoy Goswami(P&D)"
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "computer-science-engineering",
+			"patterns": [
+				"computer science",
+				"cse",
+                "computer science and  engineering "
+			],
+			"responses": [
+				"The Department of Computer Science and Engineering of Central Institute of Technology, Kokrajhar is ready to prepare well qualified, motivated, application oriented young and dynamic Computer Science graduates. Over the last three years department of Computer Science & Engineering is also generating a good number of diploma students in Computer Science & Engineering branch. The department is looking forward to get the national as well as international recognition. We will diversify our knowledge in interdisciplinary courses and collaboration with other institutes (like NITs and IITs) and R&D Labs of some well known Software Industries. We are preparing ourselves for organizing and attending different workshops and seminars. With the help of vocational training we will definitely serve the purpose of the society."
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "electronics-telecommunication",
+			"patterns": [
+				"electronics-telecommunication",
+				"ece",
+                "electronics",
+                "electronics and communication",
+                "electronics and communication engineering",
+                "electronics-telecommunication engineering"
+			],
+			"responses": [
+				"The branch of ECE focuses on the study of three core subareas such as VLSI, signal processing, and communication systems.The department of ECE at the moment has strength of ten faculties who are specialized in various fields such as nanoelectronics, digital system design, analog and RF circuits, microwave photonics, micro-strip antennas, medical image processing, machine learning, 5G communication systems, …etc. Our laboratories are equipped with all necessary hardware and software facilities to conduct regular academic activities of all departmental programs. We are also enriched with high end setups such as high performance computing system, anechoic chamber and GHz-network analyzer for advanced research works."
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "food-engineering-technology",
+			"patterns": [
+				"food-engineering-technology",
+				"food engineering",
+				"food technology",
+				"fet",
+                "food processing",
+                "food"
+			],
+			"responses": [
+				"The objective of this programme is to train the best talents of the nation in order to provide a support base for the country food security. The programme is designed to expose the students to the state-of-art laboratory facilities created with assistance from Ministry Human Resources Department, Govt. of India and BTC. Hands-on training in commercial food processing industries, student project work, exposure to national and international seminars and multi-disciplinary approaches is the highlights of this course. We are committed to creating a graduate research environment and culture that fosters excellence and diversity, and inspires a generation of food scientists externally visible to the college, university, and international computing communities."
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "instrumentation-engineering",
+			"patterns": [
+				"instrumentation",
+				"instrumentation engineering",
+                "ie"
+			],
+			"responses": [
+				"The Instrumentation Engineering Department of CIT Kokrajhar was established in the year 2007.The Department incorporates all the modern facilities, well established laboratories and sophisticated instruments to provide latest technological know-hows to the future technocrats. The faculties and the staffs are involved in dedicated learning, teaching, and research and in pursuit of excellence following the current trend in the industry and research. The Department is committed to the overall development of the institute. The objective of the Department is to produce quality individuals who can fulfil the ever increasing demand of skilled professionals in the area of Instrumentation and Control Engineering."
+			],
+			"context_set": ""
+		},
+		{
+			"tag": "civil-engineering",
+			"patterns": [
+				"civil",
+				"civil-engineering",
+                "ce"
+			],
+			"responses": [
+				"Construction Technology is a professional engineering discipline that deals with the design, construction and maintenance of the physical and naturally built environment, including works such as bridges, roads, canals, dams and buildings. Construction Technology is the oldest engineering discipline aftermilitary engineering. It is traditionally broken into several sub-disciplines including environmental engineering, geotechnical engineering, structural engineering, transportation engineering, water resources engineering, materials engineering, coastal engineering, surveying, and construction engineering. Construction Technology takes place on all levels, hence the department of construction Technology was started in this institute from the academic year 2009-2010. The department is at present conducting one diploma course."
+			],
+			"context_set": ""
+		},
+        {
+			"tag": "information technology",
+			"patterns": [
+				"information technology",
+				"it"
+			],
+			"responses": [
+				"Looking into the growing demand of IT professionals in various fields, Central Institute of Technology(CIT), kokrajhar has started B.Tech course in Information Technology(IT) from 2011-12 with an intake of 60 students. Emphasis of B.Tech. in Information Technology is to equip students with the fundamental concepts and tools related to Information Technology. This course is designed in such a way to provide foundation of the basics subjects like software development, networking, computer architecture and design, programming, operating systems, multimedia and graphics, data communication, data mining etc. Specialized knowledge on the analysis and design of information systems, information security, mobile communication, artificial intelligence, soft computing, expert systems, web engineering is imparted. In addition, there are various electives related to emerging Information Technology areas such as neural networks, cloud computing, real time embedded system , IT in forensic science etc. Further, industrial trainings form an important component of Information Technology curriculum providing sufficient understanding and technical mastery to the students and make them aware of working culture of industry."
+			],
+			"context_set": ""
+		},
+        {
+			"tag": "multimedia communication and design",
+			"patterns": [
+				"multimedia communication and design",
+				"mcd"
+			],
+			"responses": [
+				"The Department offers 4 year / 8 semester Bachelor of Design programme in Multimedia Communication and Design. The programme covers subjects of Multimedia, Visual Communication, Animation, Audio-Video editing, Gaming, Digital Design etc."
+			],
+			"context_set": ""
+		}
+	]
 }
