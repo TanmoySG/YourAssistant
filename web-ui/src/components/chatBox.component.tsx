@@ -6,7 +6,7 @@ import compile from "string-template/compile";
 
 export default function ChatBox() {
 
-    var endpoint = compile('https://tanmoysg-yourassistant-rxwxq6xg3447-5000.githubpreview.dev/interact?query="{0}"')
+    var endpoint = compile(`https://yourassistantmax.azurewebsites.net/interact?query="{0}"`)
 
     const [messages, setMessages] = useState<string[]>([]);
     const [query, setQuery] = useState("");
@@ -17,12 +17,16 @@ export default function ChatBox() {
         messagesList.push(query)
         setMessages(messagesList);
 
-        const normalizedQuery = endpoint(query.replace(" ", "%20"))
+        const normalizedQuery = endpoint(query)
         console.log(normalizedQuery)
         fetch(normalizedQuery, {
-            method: "GET",
+            method: "POST",
             mode: "no-cors",
+            headers: {
+                'Content-Type': 'application/json',
+            },
         }).then(response => {
+            console.log(response, response.json())
             return response.json()
         }).then(json => {
             console.log(json)
